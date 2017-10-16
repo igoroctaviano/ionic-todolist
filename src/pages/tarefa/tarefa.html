@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Tarefa</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    
+    <ion-item>
+      <ion-label color="primary">Descrição</ion-label>
+      <ion-input placeholder="Descrição da tarefa" [(ngModel)]="descricao" required name="descricao" #cd="ngModel"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Projeto</ion-label>
+      <ion-select [(ngModel)]="codigoProjeto">
+        <ion-option *ngFor="let p of projetos" value="{{p.codigo}}">
+          {{p.nome}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Data</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" min="2010" max="2030" [(ngModel)]="data"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Prioridade</ion-label>
+      <ion-select [(ngModel)]="prioridade">
+        <ion-option value="1">1 - Alta</ion-option>
+        <ion-option value="2">2 - Média</ion-option>
+        <ion-option value="3">3 - Baixa</ion-option>
+      </ion-select>
+    </ion-item>
+    
+  </ion-list>
+
+  <ion-card *ngIf="!cd.valid && cd.dirty" class="alerta">
+    <ion-card-content>A descrição da tarefa é obrigatória</ion-card-content>
+  </ion-card>
+
+  <div id="mais">
+    <button ion-button round color="danger" (click)="excluir()" [class.invisivel]="novo">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+    <button ion-button round color="primary" (click)="alterar()" [class.invisivel]="novo" [disabled]="!cd.valid">
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+    <button ion-button round color="primary" (click)="incluir()" [class.invisivel]="!novo" [disabled]="!cd.valid">
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </div>
+
+</ion-content>
