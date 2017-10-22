@@ -7,7 +7,7 @@ Para isso usamos o comando:
 Reaproveitamos a lista já construída para página Tarefas e adicionamos o componente SearchBar, assim temos a página Tarefas sobrecarregada com uma SearchBar.
 
 Adicionamos um novo item no menu da página tarefas para redicionar para a nova página Buscar:
-<pre>
+```
 <ion-content>
   <ion-list>
     <ion-item-group>
@@ -23,7 +23,7 @@ Adicionamos um novo item no menu da página tarefas para redicionar para a nova 
     </ion-item-group>
   </ion-list>
 </ion-content>
-</pre>
+```
 
 Dentro da página Buscar adicionamos o novo componente SearchBar:
 ```
