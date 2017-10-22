@@ -71,7 +71,10 @@ export class TarefasPage {
 export class Filtro implements PipeTransform {
   transform(itens: any[], filtro: any): any {
     itens.sort((a, b) => a.data - b.data);
-    if (filtro.projeto >= 0) {
+    if (filtro.descricao) {
+      console.log(filtro.descricao);
+      return itens.filter(item => item.descricao == filtro.descricao);
+    } else if (filtro.projeto >= 0) {
       return itens.filter(item => item.projeto == filtro.projeto);
     } else if (filtro.dias >= 0) {
       let d = new Date(

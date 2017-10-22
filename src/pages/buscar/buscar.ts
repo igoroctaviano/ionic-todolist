@@ -11,7 +11,6 @@ import { ProjetosService } from "../../providers/projetos-service/projetos-servi
   templateUrl: "buscar.html"
 })
 export class BuscarPage {
-
   tarefas: any[];
   projetos: any[];
   filtroTarefas = {};
@@ -55,5 +54,10 @@ export class BuscarPage {
   filtroDias(d) {
     this.filtroTarefas = { dias: d };
     this.menuCtrl.close();
+  }
+
+  onInputTime(ev: any) {
+    let val = ev.target.value;
+    this.filtroTarefas = { descricao: val };
   }
 }

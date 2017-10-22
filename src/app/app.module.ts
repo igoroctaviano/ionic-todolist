@@ -20,7 +20,7 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
 import { ProjetosService } from "../providers/projetos-service/projetos-service";
-import { TarefasService } from '../providers/tarefas-service/tarefas-service';
+import { TarefasService } from "../providers/tarefas-service/tarefas-service";
 
 @NgModule({
   declarations: [
@@ -35,13 +35,21 @@ import { TarefasService } from '../providers/tarefas-service/tarefas-service';
   ],
   imports: [BrowserModule, HttpModule, IonicModule.forRoot(MyApp)],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, ProjetosPage, ProjetoPage, TarefasPage, TarefaPage, BuscarPage, TabsPage],
+  entryComponents: [
+    MyApp,
+    ProjetosPage,
+    ProjetoPage,
+    TarefasPage,
+    TarefaPage,
+    BuscarPage,
+    TabsPage
+  ],
   providers: [
     StatusBar,
     SplashScreen,
     ProjetosService,
     TarefasService,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
 export class AppModule {}
