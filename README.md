@@ -1,26 +1,84 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+Primeiramente criamos a página Buscar para exibir a lista de tarefas buscáveis por descrição.
 
-## How to use this template
+Para isso usamos o comando:
+```
+  ionic create page
+```
+Reaproveitamos a lista já construída para página Tarefas e adicionamos o componente SearchBar, assim temos a página Tarefas sobrecarregada com uma SearchBar.
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+Adicionamos um novo item no menu da página tarefas para redicionar para a nova página Buscar:
+<pre>
+<ion-content>
+  <ion-list>
+    <ion-item-group>
+      <button ion-item (click)="filtroBuscar()">Buscar</button>
+      <button ion-item (click)="limpaFiltros()">Todas</button>
+      <button ion-item (click)="filtroDias(0)">Até hoje</button>
+      <button ion-item (click)="filtroDias(1)">Até amanhã</button>
+      <button ion-item (click)="filtroDias(7)">Até a próxima semana</button>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider class="light">POR PROJETO</ion-item-divider>
+      <button ion-item *ngFor="let p of projetos" (click)="filtroProjeto(p.codigo)">{{p.nome}}</button>
+    </ion-item-group>
+  </ion-list>
+</ion-content>
+</pre>
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
-
-### With the Ionic CLI:
-
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myTabs tabs
+Dentro da página Buscar adicionamos o novo componente SearchBar:
+```
+  <ion-searchbar placeholder="Tarefa..." (ionInput)="onInputTime($event)"></ion-searchbar>
 ```
 
-Then, to run it, cd into `myTabs` and run:
+E criamos o método *onInputTime* que é executado a cada entrada dentro da classe Buscar:
+```
+  onInputTime(ev: any) {
+    let val = ev.target.value;
+    this.filtroTarefas = { descricao: val };
+  }
+```
+Esse método basicamente recebe o evento de entrada do SearchBar (a cada entrada de caracter) e recebe o seu valor que é o texto digitado pelo usuário. Esse texto é a descrição, então reutilizamos a variável *filtroTarefas* do componente Tarefas.
 
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
+Dado esse novo filtro, tivemos que adicionar uma nova condicional ao pipe do componente Tarefas. De início a busca funcionava se os caracteres fossem totalmente iguais, logo depois alteramos para que fosse retornado a lista filtrada por substring:
+```
+  @Pipe({
+    name: "filtro"
+  })
+  export class Filtro implements PipeTransform {
+    transform(itens: any[], filtro: any): any {
+      itens.sort((a, b) => a.data - b.data);
+      **if (filtro.descricao) {
+        return itens.filter(item => item.descricao == filtro.descricao); **
+      } else if (filtro.projeto >= 0) {
+        return itens.filter(item => item.projeto == filtro.projeto);
+      } else if (filtro.dias >= 0) {
+        let d = new Date(
+          new Date().getTime() + filtro.dias * 24 * 60 * 60 * 1000
+        );
+        return itens.filter(item => item.data <= d);
+      } else return itens;
+    }
+  }
 ```
 
-Substitute ios for android if not on a Mac.
-
+Para isso alteramos a condicional dentro da Pipe:
+```
+  @Pipe({
+    name: "filtro"
+  })
+  export class Filtro implements PipeTransform {
+    transform(itens: any[], filtro: any): any {
+      itens.sort((a, b) => a.data - b.data);
+      **if (filtro.descricao) {
+        return itens.filter(item => item.descricao.indexOf(filtro.descricao) > -1); **
+      } else if (filtro.projeto >= 0) {
+        return itens.filter(item => item.projeto == filtro.projeto);
+      } else if (filtro.dias >= 0) {
+        let d = new Date(
+          new Date().getTime() + filtro.dias * 24 * 60 * 60 * 1000
+        );
+        return itens.filter(item => item.data <= d);
+      } else return itens;
+    }
+  }
+```
