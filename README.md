@@ -30,6 +30,15 @@ Adicionamos um novo item no menu da página tarefas para redicionar para a nova 
   </ion-list>
 </ion-content>
 ```
+e criamos o método para navegação em Tarefas:
+
+```
+filtroBuscar() {
+  this.navCtrl.push(BuscarPage, { codigo: 0, novo: true });
+  this.filtroTarefas = {};
+  this.menuCtrl.close();
+}
+```
 
 Dentro da página Buscar adicionamos o novo componente SearchBar:
 ```
