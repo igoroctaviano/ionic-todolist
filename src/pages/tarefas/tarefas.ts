@@ -73,7 +73,7 @@ export class Filtro implements PipeTransform {
     itens.sort((a, b) => a.data - b.data);
     if (filtro.descricao) {
       console.log(filtro.descricao);
-      return itens.filter(item => item.descricao == filtro.descricao);
+      return itens.filter(item => item.descricao.indexOf(filtro.descricao) > -1);
     } else if (filtro.projeto >= 0) {
       return itens.filter(item => item.projeto == filtro.projeto);
     } else if (filtro.dias >= 0) {
