@@ -13,6 +13,7 @@ import { ProjetoPage } from "../pages/projeto/projeto";
 import { TarefasPage, Filtro } from "../pages/tarefas/tarefas";
 import { TarefaPage } from "../pages/tarefa/tarefa";
 import { TabsPage } from "../pages/tabs/tabs";
+import { BuscarPage } from "../pages/buscar/buscar";
 
 // Ionic Native Dependencies
 import { StatusBar } from "@ionic-native/status-bar";
@@ -29,11 +30,12 @@ import { TarefasService } from '../providers/tarefas-service/tarefas-service';
     TabsPage,
     TarefasPage,
     TarefaPage,
+    BuscarPage,
     Filtro
   ],
   imports: [BrowserModule, HttpModule, IonicModule.forRoot(MyApp)],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, ProjetosPage, ProjetoPage, TarefasPage, TarefaPage, TabsPage],
+  entryComponents: [MyApp, ProjetosPage, ProjetoPage, TarefasPage, TarefaPage, BuscarPage, TabsPage],
   providers: [
     StatusBar,
     SplashScreen,
