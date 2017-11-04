@@ -22,6 +22,8 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { ProjetosService } from "../providers/projetos-service/projetos-service";
 import { TarefasService } from "../providers/tarefas-service/tarefas-service";
 
+import { Camera } from "@ionic-native/camera";
+
 @NgModule({
   declarations: [
     MyApp,
@@ -45,6 +47,7 @@ import { TarefasService } from "../providers/tarefas-service/tarefas-service";
     TabsPage
   ],
   providers: [
+    Camera,
     StatusBar,
     SplashScreen,
     ProjetosService,
