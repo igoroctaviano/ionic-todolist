@@ -12,35 +12,40 @@ export class TarefasService {
       projeto: 1,
       descricao: "Elaborar primeira prova",
       data: new Date(2017, 2, 29),
-      prioridade: 1
+      prioridade: 1,
+      img: ""
     },
     {
       codigo: 2,
       projeto: 1,
       descricao: "Fechar diário",
       data: new Date(2017, 5, 17),
-      prioridade: 2
+      prioridade: 2,
+      img: ""
     },
     {
       codigo: 3,
       projeto: 2,
       descricao: "Gravar vídeo de apresentação",
       data: new Date(2017, 2, 10),
-      prioridade: 1
+      prioridade: 1,
+      img: ""
     },
     {
       codigo: 4,
       projeto: 3,
       descricao: "Planejar campanha",
       data: new Date(2017, 3, 2),
-      prioridade: 3
+      prioridade: 3,
+      img: ""
     },
     {
       codigo: 5,
       projeto: 3,
       descricao: "Gravar videoaulas",
       data: new Date(2017, 2, 28),
-      prioridade: 1
+      prioridade: 1,
+      img: ""
     }
   ];
   ultimoCodigo = 5;
@@ -51,26 +56,28 @@ export class TarefasService {
     return this.tarefas;
   }
 
-  editTarefa(c, prj, desc, dat, prior) {
+  editTarefa(c, prj, desc, dat, prior, img) {
     for (let i = 0; i < this.tarefas.length; i++) {
       if (this.tarefas[i].codigo == c) {
         this.tarefas[i].projeto = prj;
         this.tarefas[i].descricao = desc;
         this.tarefas[i].data = dat;
         this.tarefas[i].prioridade = prior;
+        this.tarefas[i].img = img;
         break;
       }
     }
   }
 
-  addTarefa(prj, desc, dat, prior) {
+  addTarefa(prj, desc, dat, prior, img) {
     this.ultimoCodigo++;
     this.tarefas.push({
       codigo: this.ultimoCodigo,
       projeto: prj,
       descricao: desc,
       data: dat,
-      prioridade: prior
+      prioridade: prior,
+      img: img
     });
   }
 

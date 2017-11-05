@@ -1,2 +1,8 @@
 page-tarefa {
+  ion-item { 
+    img: {
+      max-width: 80px !important;
+      max-height: 80px !important;
+    }
+  }
 }

@@ -35,8 +35,23 @@
         <ion-option value="3">3 - Baixa</ion-option>
       </ion-select>
     </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Foto</ion-label>
+      <img [src]="img" *ngIf="img" />
+    </ion-item>
     
   </ion-list>
+
+  <ion-card *ngIf="!img" class="alerta">
+    <ion-card-content>Qual tal tirar uma foto para se lembrar da tarefa?</ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <img [src]="img" *ngIf="img" />
+    </ion-card-content>
+  </ion-card>
 
   <ion-card *ngIf="!cd.valid && cd.dirty" class="alerta">
     <ion-card-content>A descrição da tarefa é obrigatória</ion-card-content>
@@ -46,7 +61,10 @@
     <button ion-button round color="danger" (click)="excluir()" [class.invisivel]="novo">
       <ion-icon name="trash"></ion-icon>
     </button>
-    <button ion-button round color="primary" (click)="alterar()" [class.invisivel]="novo" [disabled]="!cd.valid">
+    <button ion-button round color="primary" (click)="tirarFoto()">
+      <ion-icon name="camera"></ion-icon>
+    </button>
+    <button ion-button round color="secondary" (click)="alterar()" [class.invisivel]="novo" [disabled]="!cd.valid">
       <ion-icon name="checkmark"></ion-icon>
     </button>
     <button ion-button round color="primary" (click)="incluir()" [class.invisivel]="!novo" [disabled]="!cd.valid">

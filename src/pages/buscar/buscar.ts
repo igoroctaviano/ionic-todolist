@@ -6,8 +6,6 @@ import { TarefaPage } from "../tarefa/tarefa";
 import { TarefasService } from "../../providers/tarefas-service/tarefas-service";
 import { ProjetosService } from "../../providers/projetos-service/projetos-service";
 
-import { Camera, CameraOptions } from "@ionic-native/camera";
-
 @Component({
   selector: "page-buscar",
   templateUrl: "buscar.html"
@@ -17,10 +15,7 @@ export class BuscarPage {
   projetos: any[];
   filtroTarefas = {};
 
-  public base64Image: string;
-
   constructor(
-    private camera: Camera,
     public navCtrl: NavController,
     public navParams: NavParams,
     public menuCtrl: MenuController,
@@ -29,26 +24,6 @@ export class BuscarPage {
   ) {
     this.projetos = projetosService.getProjetos();
     this.tarefas = tarefasService.getTarefas();
-  }
-
-  tirarFoto() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
-
-    this.camera.getPicture(options).then(
-      imageData => {
-        // imageData is either a base64 encoded string or a file URI
-        // If it's base64:
-        this.base64Image = "data:image/jpeg;base64," + imageData;
-      },
-      err => {
-        console.log(err);
-      }
-    );
   }
 
   nomeProjeto(c): string {

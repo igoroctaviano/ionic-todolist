@@ -5,6 +5,8 @@ import { TarefasService } from "../../providers/tarefas-service/tarefas-service"
 import { ProjetosService } from "../../providers/projetos-service/projetos-service";
 import { TabsPage } from "../tabs/tabs";
 
+import { Camera, CameraOptions } from "@ionic-native/camera";
+
 @Component({
   selector: "page-tarefa",
   templateUrl: "tarefa.html"
@@ -21,8 +23,10 @@ export class TarefaPage {
   descricao: string;
   prioridade: number;
   data: string;
+  public img: string;
 
   constructor(
+    private camera: Camera,
     public navCtrl: NavController,
     public navParams: NavParams,
     public tarefasService: TarefasService,
@@ -40,6 +44,7 @@ export class TarefaPage {
           this.codigoProjeto = tarefas[i].projeto;
           this.descricao = tarefas[i].descricao;
           this.prioridade = tarefas[i].prioridade;
+          this.img = tarefas[i].img;
           let d = tarefas[i].data;
           this.data =
             d.getFullYear() +
@@ -63,6 +68,24 @@ export class TarefaPage {
     }
   }
 
+  tirarFoto() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then(
+      imageData => {
+        this.img = "data:image/jpeg;base64," + imageData;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
   alterar() {
     let d = new Date(
       parseInt(this.data.substr(0, 4)),
@@ -74,7 +97,8 @@ export class TarefaPage {
       this.codigoProjeto,
       this.descricao,
       d,
-      this.prioridade
+      this.prioridade,
+      this.img,
     );
     this.navCtrl.pop();
   }
@@ -94,7 +118,8 @@ export class TarefaPage {
       this.codigoProjeto,
       this.descricao,
       d,
-      this.prioridade
+      this.prioridade,
+      this.img
     );
     this.navCtrl.pop();
   }
